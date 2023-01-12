@@ -1,4 +1,4 @@
-package dev.suresh.springnative
+package dev.suresh
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

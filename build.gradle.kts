@@ -1,11 +1,12 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("org.springframework.boot") version "3.0.0"
+  id("org.springframework.boot") version "3.0.1"
   id("io.spring.dependency-management") version "1.1.0"
-  id("org.graalvm.buildtools.native") version "0.9.18"
-  kotlin("jvm") version "1.8.0-Beta"
-  kotlin("plugin.spring") version "1.8.0-Beta"
+  id("org.graalvm.buildtools.native") version "0.9.19"
+  kotlin("jvm") version "1.8.0"
+  kotlin("plugin.spring") version "1.8.0"
   id("com.github.ben-manes.versions") version "0.44.0"
   id("nl.littlerobots.version-catalog-update") version "0.7.0"
 }
@@ -14,7 +15,7 @@ group = "dev.suresh"
 
 version = "0.0.1"
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_19
 
 repositories { mavenCentral() }
 
@@ -30,11 +31,14 @@ dependencies {
   testImplementation("org.springframework.security:spring-security-test")
 }
 
-tasks.withType<KotlinCompile> {
-  kotlinOptions {
-    freeCompilerArgs = listOf("-Xjsr305=strict")
-    jvmTarget = "17"
+tasks {
+  withType<KotlinCompile> {
+    compilerOptions {
+      jvmTarget.set(JVM_19)
+      freeCompilerArgs.addAll("-Xjsr305=strict")
+    }
   }
-}
 
-tasks.withType<Test> { useJUnitPlatform() }
+  graalvmNative { metadataRepository { enabled.set(true) } }
+  withType<Test> { useJUnitPlatform() }
+}

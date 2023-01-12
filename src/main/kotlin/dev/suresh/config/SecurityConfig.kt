@@ -1,4 +1,4 @@
-package dev.suresh.springnative.config
+package dev.suresh.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.Customizer
