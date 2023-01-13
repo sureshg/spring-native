@@ -38,7 +38,5 @@ tasks {
       freeCompilerArgs.addAll("-Xjsr305=strict")
     }
   }
-
-  graalvmNative { metadataRepository { enabled.set(true) } }
   withType<Test> { useJUnitPlatform() }
 }
